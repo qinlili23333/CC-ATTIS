@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>正在载入...</title>
+    <style type="text/css">
+        @font-face {
+            font-family: "myFont";
+            src: url(Font.woff2);
+        }
+
+
+        body {
+            margin: 0px;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <link href="material-components-web.min.css" rel="stylesheet">
+    <script src="material-components-web.min.js"></script>
+</head>
+
+<body marginheight="0px" marginwidth="0px" style="background-color:rgba(0,0,0,0);">
+    <div style="text-align:center;vertical-align: middle;height:100%;width:100%;">
+        <p id="title" style="font-size:30px;color:rgba(0,0,0,0);height:40%;">清涟Elina</p>
+        <image  style="display: inline-block;vertical-align: middle;" src="neko.webp" width="256px" height="256px">
+        </image>
+    </div>
+    <script>
+        var win = nw.Window.get();
+        win.setPosition("center");
+        var preload = function(){
+        document.getElementById("title").style.fontFamily = "myFont";
+        setTimeout(redirect, 500);
+        }
+        var redirect = function () {
+            document.location.href = "main.html";
+        };
+        setTimeout(preload, 500);</script>
+</body>
+
+</html>
