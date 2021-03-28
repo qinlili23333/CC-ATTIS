@@ -48,7 +48,12 @@
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
+                    try{
                     jsonText = JSON.parse(xhr.responseText);
+                    }catch{
+                        alert("网络连接失败!");
+                        win.close(true);
+                    }
                     if (jsonText.enable == false) {
                         alert("本程序暂不开放:" + jsonText.info);
                         win.close(true);
