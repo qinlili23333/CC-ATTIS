@@ -20,6 +20,11 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        img[src=""],
+        img:not([src]) {
+            opacity: 0;
+        }
     </style>
     <link href="material-components-web.min.css" rel="stylesheet">
     <script src="material-components-web.min.js"></script>
@@ -27,16 +32,39 @@
 
 <body marginheight="0px" marginwidth="0px" style="background-color:rgba(0,0,0,0);">
     <div style="text-align:center;vertical-align: middle;height:100%;width:100%;">
-        <p id="title" style="font-size:30px;color:rgba(0,0,0,0);height:40%;">清涟Elina</p>
-        <image  style="display: inline-block;vertical-align: middle;" src="neko.webp" width="256px" height="256px">
+        <p id="title" style="font-size:30px;color:rgba(0,0,0,0);height:0%;">清涟Elina</p>
+        <image style="display: inline-block;vertical-align: middle;" src="neko.webp" width="256px" height="256px">
         </image>
+        <image id="ad" style="display:inline-block;vertical-align: middle;border:none;cursor:pointer;" width="100%"
+            height="auto"></image>
+
     </div>
     <script>
         var win = nw.Window.get();
         win.setPosition("center");
-        var preload = function(){
-        document.getElementById("title").style.fontFamily = "myFont";
-        setTimeout(redirect, 500);
+        let gui = require('nw.gui');
+        var preload = function () {
+            document.getElementById("title").style.fontFamily = "myFont";
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    jsonText = JSON.parse(xhr.responseText);
+                    if (jsonText.enable == false) {
+                        alert("本程序暂不开放:" + jsonText.info);
+                        win.close(true);
+                    }
+                    if (jsonText.ad) {
+                        document.getElementById("ad").src = jsonText.adurl;
+                        document.getElementById("ad").onclick = function () {
+                            gui.Shell.openExternal(jsonText.clickurl);
+                        }
+                    }
+                    setTimeout(redirect, 2000);
+                }
+            }
+            var jsonurl = 'https://cdn.jsdelivr.net/gh/qinlili23333/CC-ATTIS@backend/splash/splash.json'
+            xhr.open('get', jsonurl);
+            xhr.send(null);
         }
         var redirect = function () {
             document.location.href = "main.html";

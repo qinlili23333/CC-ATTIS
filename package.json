@@ -4,8 +4,8 @@
     "window": {
         "title": "ATTIS防空炮",
         "toolbar": false,
-        "width": 565,
-        "height": 907,
+        "width": 423,
+        "height": 680,
         "resizable": false,
         "icon": "www/icon.png",
         "frame": false,
